@@ -6,7 +6,7 @@ from models import Contact
 @app.route("/contacts", methods=["GET"])
 def get_contacts():
     contacts = Contact.query.all()
-    json_contacts = list(map(lambda x: x.tojson(), contacts))
+    json_contacts = list(map(lambda x: x.to_json(), contacts))
     return jsonify({"contacts": json_contacts})
 
 @app.route("/create_contact", methods=["POST"])

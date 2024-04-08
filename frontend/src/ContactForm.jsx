@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const ContactForm = ({ }) => {
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
-    const [email, setEmail] = useState("")
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
 
     const onSubmit = async (e) => {
         // prevents the page from refreshing automatically
@@ -14,7 +14,7 @@ const ContactForm = ({ }) => {
             lastName,
             email
         }
-        const url = "http://127:0.0.1:5000/create_contact"
+        const url = "http://127.0.0.1:5000/create_contact"
         const options = {
             method: "POST",
             headers: {
@@ -31,8 +31,7 @@ const ContactForm = ({ }) => {
         }
     }
 
-    return 
-    (
+    return (
         <form onSubmit={onSubmit}>
             <div>
                 <label htmlFor="firstName">First Name:</label>
@@ -47,7 +46,7 @@ const ContactForm = ({ }) => {
                 <input type="text"
                     id='lastName' 
                     value={lastName} 
-                    onChange={(e) => setFirstName(e.target.value)} 
+                    onChange={(e) => setLastName(e.target.value)} 
                 />
             </div>
             <div>
@@ -55,7 +54,7 @@ const ContactForm = ({ }) => {
                 <input type="email"
                     id='email' 
                     value={email} 
-                    onChange={(e) => setFirstName(e.target.value)} 
+                    onChange={(e) => setEmail(e.target.value)} 
                 />
             </div>
             <button type='submit'>Create Contact</button>
@@ -63,4 +62,4 @@ const ContactForm = ({ }) => {
     );
 };
 
-export default ContactForm
+export default ContactForm;
