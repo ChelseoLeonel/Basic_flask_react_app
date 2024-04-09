@@ -1,9 +1,11 @@
 import { useState } from 'react'
 
-const ContactForm = ({ }) => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
+const ContactForm = ({ existingContact = {}, updateCallback}) => {
+    const [firstName, setFirstName] = useState(existingContact.firstName || "");
+    const [lastName, setLastName] = useState(existingContact.lastName || "");
+    const [email, setEmail] = useState(existingContact.email || "");
+
+    const updating = Object.entries(existingContact).length !== 0
 
     const onSubmit = async (e) => {
         // prevents the page from refreshing automatically
@@ -14,9 +16,9 @@ const ContactForm = ({ }) => {
             lastName,
             email
         }
-        const url = "http://127.0.0.1:5000/create_contact"
+        const url = "http://127.0.0.1:5000/" + (updating ? `update_contact/${existingContact.id}` : "create_contact")
         const options = {
-            method: "POST",
+            method: updating ? "PATCH" : "POST",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -27,7 +29,7 @@ const ContactForm = ({ }) => {
             const data = await response.json()
             alert(data.message)
         } else {
-            // sucessful
+            updateCallback()
         }
     }
 
@@ -57,7 +59,7 @@ const ContactForm = ({ }) => {
                     onChange={(e) => setEmail(e.target.value)} 
                 />
             </div>
-            <button type='submit'>Create Contact</button>
+            <button type='submit'>{updating ? "Update" : "Create"} Contact</button>
         </form>
     );
 };
